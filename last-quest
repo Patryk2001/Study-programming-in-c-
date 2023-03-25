@@ -1,0 +1,148 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+    struct Farmer {
+        int number;
+        string region;
+        string surname;
+        string name;
+        string birthdate;
+        int liters;
+        float fatContent;
+        string milkClass;
+    };
+
+int main() {
+    Farmer farmers[10] = {
+        {1, "Bielawa", "Kalisz", "Eugenia", "1972-12-18", 155, 4.1, "I"},
+        {83, "Olszyna", "Gora", "Lucyna", "1971-09-13", 158, 3.7, "II"},
+        {208, "Strzelin", "Hudzik", "Anna", "1977-01-05", 149, 3.7, "E"},
+        {270, "Czernicha", "Las", "Maria", "1976-04-14", 189, 3.8, "P"},
+        {381, "Brodnica", "Janas", "Jan", "1976-10-15", 562, 3.6, "II"},
+        {415, "Koronowo", "Knapik", "Jan", "1973-08-05", 323, 3.8, "E"},
+        {457, "Lipno", "Dynda", "Henryk", "1974-08-22", 266, 3.7, "I"},
+        {515, "Radomin", "Wojna", "Jacek", "1971-09-03", 108, 3.6, "I"},
+        {636, "Pruszcz", "Mika", "Zofia", "1973-07-13", 125, 3.8, "I"},
+        {828, "Wysokie", "Janik", "Dorota", "1974-01-29", 558, 3.5, "I"}
+    };
+
+    int lastNumber;
+    string lastRegion;
+    string lastSurname;
+    string lastName;
+    string lastBirthdate;
+    int lastLiters;
+    float lastFatContent;
+    string lastMilkClass;
+
+    cout << "Podaj dane ostatniego rolnika: " << endl;
+    cout << "Numer: ";
+    cin >> lastNumber;
+    cout << "Rejon: ";
+    cin >> lastRegion;
+    cout << "Nazwisko: ";
+    cin >> lastSurname;
+    cout << "Imie: ";
+    cin >> lastName;
+    cout << "Data urodzenia (RRRR-MM-DD): ";
+    cin >> lastBirthdate;
+    cout << "Ilość litrów: ";
+    cin >> lastLiters;
+    cout << "Zawartość tłuszczu: ";
+    cin >> lastFatContent;
+    cout << "Klasa mleka: ";
+    cin >> lastMilkClass;
+
+farmers[9] = {lastNumber, lastRegion, lastSurname, lastName, lastBirthdate, lastLiters, lastFatContent, lastMilkClass}
+
+    //Wypisz na ekranie nazwiska, imiona i oddane litry wszystkich rolników
+    for (int i = 0; i < 10; i++) {
+    cout << "Rolnik " << i + 1 << ": " << farmers[i].surname << " " << farmers[i].name << " " << farmers[i].liters << " litrów." << endl;
+    }
+
+    //Policz sumaryczną liczbę oddanych litów mleka
+    int totalLiters = 0;
+    for (int i = 0; i < 10; i++) {
+    totalLiters += farmers[i].liters;
+    }
+    cout << "Suma litrów mleka: " << totalLiters << endl;
+
+    //Wylicz średnią zawartość tłuszczu w mleku
+    float averageFatContent = 0;
+    for (int i = 0; i < 10; i++) {
+    averageFatContent += farmers[i].fatContent;
+    }
+    averageFatContent /= 10;
+    cout << "Średnia zawartość tłuszczu: " << averageFatContent << endl;
+
+    //Wypisz na ekranie nazwiska i imiona rolników, którzy urodzili się we wrześniu
+    for (int i = 0; i < 10; i++) {
+    if (farmers[i].birthdate.substr(5, 2) == "09") {
+    cout << farmers[i].surname << " " << farmers[i].name << endl;
+    }
+    }
+
+//Policz sumaryczną liczbę oddanych litów mleka
+
+int sumLiters = 0;
+    for (int i = 0; i < 10; i++) {
+        sumLiters += farmers[i].liters;
+    }
+    cout << "Sumaryczna liczba oddanych litów mleka: " << sumLiters << endl;
+
+//Wylicz średnią zawartość tłuszczu w mleku
+
+float avgFatContent = 0;
+    for (int i = 0; i < 10; i++) {
+        avgFatContent += farmers[i].fatContent;
+    }
+    avgFatContent /= 10;
+    cout << "Średnia zawartość tłuszczu w mleku: " << avgFatContent << endl;
+
+//Wylicz średnią ważoną tłuszczu w mleku według wzoru
+
+    float sumaLitrow = 0;
+    float sumaIloczynow = 0;
+        for (int i = 0; i < 10; i++) {
+            sumaLitrow += farmers[i].liters;
+            sumaIloczynow += farmers[i].liters * farmers[i].fatContent;
+        }
+    float srednia = sumaIloczynow / sumaLitrow;
+    cout << "Srednia wazona tluszczu w mleku: " << srednia << endl;
+
+// zadanie 8
+float salary;
+float totalSalary = 0;
+
+    for (int i = 0; i < 10; i++) {
+        salary = farmers[i].liters * 1.15;
+        if (farmers[i].liters > 150) {
+            salary += (farmers[i].liters - 150) * 0.5;
+        }
+        if (farmers[i].fatContent < 3.8) {
+            salary += farmers[i].liters * 0.4;
+        }
+        if (farmers[i].milkClass == "E" || farmers[i].milkClass == "I") {
+            salary += farmers[i].liters * 0.3;
+        }
+        cout << "Rolnik nr " << farmers[i].number << " " << farmers[i].surname << " " << farmers[i].name
+        << " otrzymuje wypłatę w wysokości " << salary << " zł." << endl;
+        totalSalary += salary;
+    }
+
+cout << "Łączna wypłata dla wszystkich rolników wynosi " << totalSalary << " zł." << endl;
+
+
+//Wypisz na ekranie nazwiska i imiona rolników, którzy urodzili się we wrześniu
+
+cout << "Rolnicy urodzeni we wrześniu: " << endl;
+for (int i = 0; i < 10; i++) {
+if (farmers[i].birthdate.substr(5, 2) == "09") {
+cout << farmers[i].surname << " " << farmers[i].name << endl;
+}
+}
+
+return 0;
+}
